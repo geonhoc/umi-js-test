@@ -5,7 +5,7 @@ import styles from './index.css';
 export default function() {
 
   return (
-    <div className={styles.dataArea}>
+    <div style={{ marginTop: 14, padding: 24, background: '#fff', minHeight: '100%' }}>
       Option 4-4
     </div>
   );
