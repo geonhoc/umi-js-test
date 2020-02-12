@@ -1,6 +1,5 @@
 
 import React from 'react';
-import Moment from 'moment';
 import {AutoComplete} from 'antd';
 
 interface State {
@@ -37,22 +36,11 @@ class Option2 extends React.Component<{}, State> {
       const url = `/ajax/autocomplete?name=${searchText}`;
       const data = await fetch(String(url)).then(res => res.json());
 
-      const list: Array<string> = [];
-
-      for(let key in data) {
-        if(data.hasOwnProperty(key)) {
-          if(key === 'data') {
-            const listData = data[key];
-            for(let i=0; i<listData.length; i++) {
-              list.push(listData[i].name);
-            }
-          }
-        }
+      const listData = data['data'];
+      if (!listData) return ;
+      else {
+        this.setState({dataSource: listData.map((i: any) => i.name)});
       }
-      
-      this.setState({
-        dataSource: list,
-      });
     }
   };
 

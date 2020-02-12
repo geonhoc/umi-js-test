@@ -51,69 +51,54 @@ class Option1 extends React.Component<{}, State> {
   }
 
   // set State
-  changeState = (options: any): void => {
-    this.setState({startDate: options.startDate, endDate: options.endDate, addNum: options.addNum});
+  changeState = ({startDate, endDate, addNum}: any): void => {
+    this.setState({startDate , endDate, addNum});
   };
 
   // before or next button Click Event
   moveDate = (moveType: string): void => {
     const {startDate, addNum} = this.state;
-    const stateOptions = {
-      startDate: '',
-      endDate: '',
-      addNum: 0
-    };
 
     let changeDate: string;
     moveType === 'next' ?
       changeDate = Moment(startDate).add(1, 'days').format('YYYY-MM-DD') :
       changeDate = Moment(startDate).add(-1, 'days').format('YYYY-MM-DD');
 
-    stateOptions.startDate = changeDate;
-    stateOptions.endDate = Moment(changeDate).add(addNum - 1, 'days').format('YYYY-MM-DD');
-    stateOptions.addNum = addNum;
-
+    const stateOptions = {
+      startDate: changeDate,
+      endDate: Moment(changeDate).add(addNum - 1, 'days').format('YYYY-MM-DD'),
+      addNum: addNum,
+    };
     this.changeState(stateOptions);
   };
 
   // DatePicker change event
   changeDate = (date: any): void => {
     const {addNum} = this.state;
+    const changeDate = Moment(date).format('YYYY-MM-DD');
+
     const stateOptions = {
-      startDate: '',
-      endDate: '',
-      addNum: 0
+      startDate: changeDate,
+      endDate: Moment(changeDate).add(addNum - 1, 'days').format('YYYY-MM-DD'),
+      addNum: addNum
     };
-
-    let changeDate: string;
-    changeDate = Moment(date).format('YYYY-MM-DD');
-
-    stateOptions.startDate = changeDate;
-    stateOptions.endDate = Moment(changeDate).add(addNum - 1, 'days').format('YYYY-MM-DD');
-    stateOptions.addNum = addNum;
-
     this.changeState(stateOptions);
   };
 
   // add number change event
   changeNumber = (value: any): void => {
     const {startDate} = this.state;
-    const stateOptions = {
-      startDate: '',
-      endDate: '',
-      addNum: 0
-    };
-
     let changeDate: string, changeNum: number;
 
     if(min <= Number(value) && Number(value) <= max) {
       changeNum = Number(value) === 0 ? 1 : Number(value);
       changeDate = Moment(startDate).add(changeNum - 1, 'days').format('YYYY-MM-DD');
 
-      stateOptions.startDate = startDate;
-      stateOptions.endDate = changeDate;
-      stateOptions.addNum = changeNum;
-
+      const stateOptions = {
+        startDate: startDate,
+        endDate: changeDate,
+        addNum: changeNum
+      };
       this.changeState(stateOptions);
     }
   };
