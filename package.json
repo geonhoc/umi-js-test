@@ -8,6 +8,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
